@@ -4,16 +4,30 @@ $(document).ready(function () {
     let currentNumber = null;
     let targetSlot = null;
     let slots = new Array(defaultSlots).fill(null); // Initialize an array to track slot values
+    let openSlots = defaultSlots; // Initialize with the total number of slots
 
     // Function to initialize slots
     function initializeSlots() {
+        console.log(11);
+
         $('#slotsContainer').empty();
         slots = new Array(defaultSlots).fill(null); // Reset slots array
-        for (let i = 0; i < defaultSlots; i++) {
+        console.log(13);
+        openSlots = defaultSlots; // Reset the open slots count
+        updateOpenSlotsDisplay(); // Update the UI with the current number of open slots
+        console.log(16);
+       
+       for (let i = 0; i < defaultSlots; i++) {
             let j = i + 1;
             $('#slotsContainer').append('<div class="slot btn btn-outline-secondary rounded-pill" data-order="' + i + '">slot ' + j + '</div>');
         }
         makeSlotsDroppable(); // Apply droppable after initializing slots
+    }
+
+    // Function to update the display of open slots
+    function updateOpenSlotsDisplay() {
+      $('#openSlots').text(` ${openSlots} left`);
+      console.log("Open slots updated:", openSlots); 
     }
 
     // Function to make slots droppable
@@ -36,6 +50,8 @@ $(document).ready(function () {
                     const slotOrder = $(this).data('order');
                     slots[slotOrder] = currentNumber; // Update the array with the locked-in number
 
+                    
+
                     $('#lockInBtn').data('target', this).removeClass('d-none');
                     targetSlot = this; // Store the slot reference for locking in
 
@@ -50,24 +66,25 @@ $(document).ready(function () {
             }
         });
     }
-
+    
     // Function to handle game over (lose)
     function gameOver(message, borderColor) {
-        setTimeout(() => {
-            $('body').css('border', `20px solid ${borderColor}`);
-            alert(message);
-        }, 500); // Wait 1 second before showing the alert
+      setTimeout(() => {
+          $('body').css('border', `20px solid ${borderColor}`);
+          alert(message);
+      }, 500); // Wait 1 second before showing the alert
     }
 
     // Function to handle winning the game
     function gameWon() {
-        gameOver('Congratulations! You filled all the slots. You win!', 'green');
+      gameOver('Congratulations! You filled all the slots. You win!', 'green');
     }
-
+    
     // Function to handle losing the game
     function gameLost() {
-        gameOver('No valid slots. Game over man, game over.', 'red');
+      gameOver('No valid slots. Game over man, game over.', 'red');
     }
+
 
     // Initialize slots on page load
     initializeSlots();
@@ -151,19 +168,13 @@ $(document).ready(function () {
         }
 
         for (let i = 0; i < slots.length; i++) {
-            //console.log(`Checking Slot ${i}: Current value is ${slots[i]}`);
-            
             if (slots[i] === null) {
-                //console.log(`Slot ${i} is empty and being evaluated.`);
                 // The slot is valid if it falls between the closestBelowIndex and closestAboveIndex
                 if (i > closestBelowIndex && i < closestAboveIndex) {
                     $(`.slot[data-order=${i}]`).removeClass('btn-outline-secondary btn-outline-danger').addClass('btn-outline-success');
                 } else {
                     $(`.slot[data-order=${i}]`).removeClass('btn-outline-secondary btn-outline-success').addClass('btn-outline-danger');
                 }
-            } else {
-                //console.log(`Slot ${i} is filled with ${slots[i]} and will not be modified.`);
-                //$(`.slot[data-order=${i}]`).removeClass('btn-outline-secondary').addClass('btn-outline-info').addClass('text-dark');
             }
         }
     }
@@ -183,6 +194,9 @@ $(document).ready(function () {
             // Remove #generatedNumber element from the DOM
             $('#generatedNumber').remove();
 
+            //Update slots left
+            openSlots--; // Decrement the number of open slots
+            updateOpenSlotsDisplay(); // Update the UI with the new number of open slots
             // Reset all other slots to btn-outline-secondary if they are still empty
             $('.slot').each(function () {
                 if (slots[$(this).data('order')] === null) {
@@ -215,12 +229,14 @@ $(document).ready(function () {
 
     // Function to reset the game without resetting inputs
     function resetGame() {
-      slots = new Array(defaultSlots).fill(null); // Reset slots array
-      $('#slotsContainer').empty();
-      initializeSlots();
-      $('#generateBtn').prop('disabled', false);
-      $('#lockInBtn').addClass('d-none');
-      $('#generatedNumber').remove(); // Remove the generated number element
-      $('body').css('border', 'none'); // Reset border color
+        slots = new Array(defaultSlots).fill(null); // Reset slots array
+        $('#slotsContainer').empty();
+        initializeSlots();
+        $('#generateBtn').prop('disabled', false);
+        $('#lockInBtn').addClass('d-none');
+        $('#generatedNumber').remove(); // Remove the generated number element
+        $('body').css('border', 'none'); // Reset border color
+        openSlots = defaultSlots; // Reset the open slots count
+        updateOpenSlotsDisplay(); // Update the UI with the new number of open slots
     }
 });
