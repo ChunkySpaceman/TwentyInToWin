@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="css.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+	</head>
+	<body id="">
+		
+    <div class="container mt-5">
+
+      <div class="row">
+        <div class="col-3">
+          <div id="slotsContainer" class="d-grid gap-2">
+              <!-- Slots will be generated here -->
+          </div>
+        </div>
+        <div class="col-3">
+          <h1 class="text-center">20 in to Win</h1>
+          <p>Rules: Drag and drop the generated number to fit in order from low to high. Not enough room then you LOSE.</p>
+          <div class="text-center mb-3">
+            <div id="buttonList" class="d-grid gap-2">
+
+              <button id="generateBtn" class="btn btn-primary rounded-pill">Generate Number</button>
+              <div id="generatedNumber" class="draggable-number ui-widget-content btn btn-info rounded-pill" style="display: none;"></div>
+              <button id="lockInBtn" class="mt-5 btn btn-success rounded-pill lock-btn d-none">Lock In</button>            
+            </div>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="d-grid gap-2 mt-1 mb-2">
+            <button id="resetBtn" class="btn btn-danger rounded-pill">Mulligan</button>
+          </div>
+          <h5 class="text-center">Holes to fill</h5>
+          <input id="holeCount" type="number" step="1" min="1" value="20" class="form-control mb-3">
+          
+          <h5 class="text-center">Max Numbers</h5>
+          <input id="maxNumber" type="number" step="1" min="1" value="1000" class="form-control">
+        </div>
+      </div>
+      
+    </div>
+    
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+		<script type="module" src="js.js"></script>
+
+	</body>
+</html>

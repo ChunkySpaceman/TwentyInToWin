@@ -1,0 +1,7 @@
+.btn-outline-secondary :hover :active {
+    background-color: white !important;
+}
+
+body{
+  background: none !important;
+}
