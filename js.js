@@ -11,7 +11,7 @@ $(document).ready(function () {
         slots = new Array(defaultSlots).fill(null); // Reset slots array
         for (let i = 0; i < defaultSlots; i++) {
             let j = i + 1;
-            $('#slotsContainer').append('<div class="slot btn btn-outline-secondary rounded-pill mb-1" data-order="' + i + '">slot ' + j + '</div>');
+            $('#slotsContainer').append('<div class="slot btn btn-outline-secondary rounded-pill" data-order="' + i + '">slot ' + j + '</div>');
         }
         makeSlotsDroppable(); // Apply droppable after initializing slots
     }
